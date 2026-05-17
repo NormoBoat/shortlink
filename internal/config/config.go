@@ -17,8 +17,18 @@ type WebConfig struct {
 	Host string
 }
 
+type StoreConfig struct {
+	User     string
+	PASSWORD string
+	HOST     string
+	PORT     string
+	NAME     string
+	SSL      string
+}
+
 type Config struct {
-	Web WebConfig
+	Web   WebConfig
+	Store StoreConfig
 }
 
 func New() *Config {
@@ -32,6 +42,14 @@ func New() *Config {
 		Web: WebConfig{
 			Port: loadKeyOrDefault("HTTP_PORT", "8080"),
 			Host: loadKeyOrDefault("HTTP_HOST", "localhost"),
+		},
+		Store: StoreConfig{
+			User:     loadKeyOrDefault("DB_USER", "postgres"),
+			PASSWORD: loadKeyOrDefault("DB_PASSWORD", "postgres"),
+			HOST:     loadKeyOrDefault("DB_HOST", "postgres"),
+			PORT:     loadKeyOrDefault("DB_PORT", "5432"),
+			NAME:     loadKeyOrDefault("DB_NAME", "shortlink"),
+			SSL:      loadKeyOrDefault("DB_SSL", "false"),
 		},
 	}
 }
